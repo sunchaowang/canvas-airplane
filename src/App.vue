@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import AriPlaneBg from './assets/airplane-bg.jpg';
+import Game from "./func/Game";
 
 const canvasRef = ref();
 const bgWidth = 512;
@@ -14,25 +15,31 @@ onMounted(() => {
 	canvasDom.width = bgWidth;
 	canvasDom.height = bgHeight;
   const ctx = canvasDom.getContext("2d");
-	const ariPlaneBg = new Image();
-	ariPlaneBg.src = AriPlaneBg;
-	ariPlaneBg.onload = function (e) {
-		let y1 = 0, y2 = -bgHeight;
-		setInterval(() => {
-			ctx.drawImage(ariPlaneBg, 0, y1++, bgWidth, bgHeight)
-			ctx.drawImage(ariPlaneBg, 0, y2++, bgWidth, bgHeight)
-			if (y2 >= 0) {
-				y1 = 0;
-				y2 = -bgHeight;
-			}
- 		}, 10)
-	}
+	const game = new Game({
+		canvas: ctx,
+		width: bgWidth,
+		height: bgHeight
+	});
+	game.init();
+	// const ariPlaneBg = new Image();
+	// ariPlaneBg.src = AriPlaneBg;
+	// ariPlaneBg.onload = function (e) {
+	// 	let y1 = 0, y2 = -bgHeight;
+	// 	setInterval(() => {
+	// 		ctx.drawImage(ariPlaneBg, 0, y1++, bgWidth, bgHeight)
+	// 		ctx.drawImage(ariPlaneBg, 0, y2++, bgWidth, bgHeight)
+	// 		if (y2 >= 0) {
+	// 			y1 = 0;
+	// 			y2 = -bgHeight;
+	// 		}
+ 	// 	}, 10)
+	// }
 })
 
 </script>
 
 <template>
-  <canvas class="canvas" ref="canvasRef"></canvas>
+  <canvas class="canvas" ref="canvasRef">1</canvas>
 </template>
 
 <style>
